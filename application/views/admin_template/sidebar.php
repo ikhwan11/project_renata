@@ -22,7 +22,7 @@
                 </a>
             </li>
             <li class="active">
-                <a class="" href="#">
+                <a class="" href="<?= base_url('user/'); ?>">
                     <i class="fa fa-user"></i>
                     <span>Kelola User</span>
                 </a>
