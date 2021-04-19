@@ -28,13 +28,7 @@
                 </a>
             </li>
             <li class="active">
-                <a class="" href="#">
-                    <i class="fa fa-globe"></i>
-                    <span>Kelola Website</span>
-                </a>
-            </li>
-            <li class="active">
-                <a class="" href="#">
+                <a class="" href="<?= base_url('admin/laporan'); ?>">
                     <i class="fa fa-file-text"></i>
                     <span>Buat laporan</span>
                 </a>

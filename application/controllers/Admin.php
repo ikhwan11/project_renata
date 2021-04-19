@@ -7,7 +7,7 @@ class Admin extends CI_Controller
     public function e_tiket()
     {
         $halaman['tittle'] = 'Dashboard';
-        $data['tiket_masuk'] = $this->db->query("SELECT * FROM transaksi ORDER BY no_transaksi DESC")->result();
+        $data['tiket_masuk'] = $this->db->query("SELECT * FROM transaksi WHERE jenis_tiket = 'E-ticket' ORDER BY no_transaksi DESC")->result();
         $this->load->view('admin_template/header', $halaman);
         $this->load->view('admin_template/sidebar');
         $this->load->view('admin/dashboard_view', $data);
@@ -140,4 +140,42 @@ class Admin extends CI_Controller
         $this->load->view('admin_template/footer');
     }
     // end data tiket
+
+    public function laporan()
+    {
+        $halaman['tittle'] = 'Laporan';
+        $this->load->view('admin_template/header', $halaman);
+        $this->load->view('admin_template/sidebar');
+        $this->load->view('admin/filter_laporan');
+        $this->load->view('admin_template/footer');
+    }
+
+    public function laporan_tampil()
+    {
+
+        $dari = $this->input->post('dari');
+        $sampai = $this->input->post('sampai');
+
+        $this->_rules_laporan();
+
+        if ($this->form_validation->run() == FALSE) {
+            $halaman['tittle'] = 'Laporan';
+            $this->load->view('admin_template/header', $halaman);
+            $this->load->view('admin_template/sidebar');
+            $this->load->view('admin/filter_laporan');
+            $this->load->view('admin_template/footer');
+        } else {
+            $data = array(
+                'laporan' => $this->db->query("SELECT * FROM transaksi WHERE status_pembayaran = 'Selesai' AND date(tanggal)>= '$dari' AND date(tanggal)<= '$sampai'")->result(),
+            );
+
+            $this->load->view('admin/Laporan_tampil', $data);
+        }
+    }
+
+    public function _rules_laporan()
+    {
+        $this->form_validation->set_rules('dari', 'Dari Tanggal', 'required', array('required' => '{field} tidak boleh kosong'));
+        $this->form_validation->set_rules('sampai', 'Sampai Tanggal', 'required', array('required' => '{field} tidak boleh kosong'));
+    }
 }

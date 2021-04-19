@@ -44,7 +44,6 @@
                 <ul class="nav-menu">
                     <li><a href="<?= base_url('home/'); ?>">Home</a></li>
                     <li><a href="#about">Tentang Kami</a></li>
-                    <li><a href="#services">Layanan</a></li>
                     <li><a href="#kontak">Lokasi</a></li>
 
                     <?php if ($this->session->userdata('nama')) { ?>
